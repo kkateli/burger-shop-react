@@ -1,0 +1,1 @@
+//this us the file to manage the view of burger, check out button and checkout preview
