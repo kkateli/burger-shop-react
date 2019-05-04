@@ -5,7 +5,7 @@ const toolbar = () => {
     <div>
       
       {/* <img src= alt="logo" /> */}
-      <button><i class="fas fa-align-justify"></i></button>
+      <p><i class="fas fa-align-justify"></i></p>
     </div>
   );
 };
