@@ -2,6 +2,8 @@
 import React, { Component } from "react";
 import Burger from "../Components/Burger/Burger";
 import BurgerControls from "../Components/Burger/BurgerControls/BurgerControls";
+import Modal from "../../src/Components/UI/Modal/Modal";
+import BurgerSummary from "../Components/Burger/BurgerSummary/BurgerSummary";
 
 const INGREDIENTSPRICE = {
   salad: 0.5,
@@ -74,6 +76,9 @@ class BurgerBuilder extends Component {
      * and pass the type in BurgerControls.js where jsx BurgerControls is built */
     return (
       <div>
+          <Modal>
+              <BurgerSummary data={this.state.ingredients}/>
+          </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BurgerControls
           ingredients={this.state.ingredients}
