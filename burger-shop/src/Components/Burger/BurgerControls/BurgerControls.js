@@ -6,10 +6,10 @@ import BurgerControl from "./BurgerControl/BurgerControl";
 const burgerControls = props => {
   const arrayControls = Object.keys(props.ingredients).map(e => {
     
-        return <BurgerControl label={e} />;
+        return <BurgerControl label={e} key={e} />;
   })
    
-  return <div className={cssClasses.burgerControls}>
+  return <div className={cssClasses.BurgerControls}>
   {arrayControls}
   </div>;
 };
