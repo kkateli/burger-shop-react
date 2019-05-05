@@ -64,7 +64,7 @@ class BurgerBuilder extends Component {
       }
      
     }
-    console.log(disableIngret);
+    
     /**ANCHOR important!!!!
      * clickLess and more, when argu is not available in the file, we pass them as non argu funcs
      * and pass the type in BurgerControls.js where jsx BurgerControls is built */
@@ -76,6 +76,7 @@ class BurgerBuilder extends Component {
           clickLess={this.clickLessButton}
           clickMore={this.clickMoreButton}
           ifDisable = {disableIngret}
+          price={this.state.total}
         />
         <div>checkout button</div>
       </div>

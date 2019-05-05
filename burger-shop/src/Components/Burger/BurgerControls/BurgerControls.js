@@ -13,6 +13,7 @@ const burgerControls = props => {
   })
    
   return <div className={cssClasses.BurgerControls}>
+  <p>Current price: ${props.price}</p>
   {arrayControls}
   </div>;
 };
