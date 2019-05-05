@@ -4,6 +4,7 @@ import Burger from "../Components/Burger/Burger";
 import BurgerControls from "../Components/Burger/BurgerControls/BurgerControls";
 import Modal from "../../src/Components/UI/Modal/Modal";
 import BurgerSummary from "../Components/Burger/BurgerSummary/BurgerSummary";
+import Backdrop from "../Components/UI/Backdrop/Backdrop";
 
 const INGREDIENTSPRICE = {
   salad: 0.5,
@@ -53,7 +54,7 @@ class BurgerBuilder extends Component {
     
   };
 
-  ifCheckOutClicked = ()=>{
+  ifClicked = ()=>{
       this.setState({ifShown:!this.state.ifShown});
 
       }
@@ -81,9 +82,12 @@ class BurgerBuilder extends Component {
     let summary =null;
     if(this.state.ifShown){
         summary=(
+            <div>
             <Modal>
               <BurgerSummary price= {this.state.total} data={this.state.ingredients}/>
           </Modal>
+          <Backdrop backdropClicked={this.ifClicked}/>
+          </div>
 
         )
     }
@@ -102,7 +106,7 @@ class BurgerBuilder extends Component {
           ifDisable = {disableIngret}
           price={this.state.total}
           checkOut = {ifCheckOut}
-          showSummary={this.ifCheckOutClicked}
+          showSummary={this.ifClicked}
         />
         
       </div>
