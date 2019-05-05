@@ -20,7 +20,8 @@ class BurgerBuilder extends Component {
       cheese: 0,
       meat: 0
     },
-    total: 0
+    total: 0,
+    ifShown:false
   };
 
   clickLessButton = type => {
@@ -51,6 +52,12 @@ class BurgerBuilder extends Component {
     
     
   };
+
+  ifCheckOutClicked = ()=>{
+      this.setState({ifShown:!this.state.ifShown});
+
+      }
+  
   
 
   render() {
@@ -70,15 +77,23 @@ class BurgerBuilder extends Component {
     if(this.state.total>0){
         ifCheckOut=false;
     }
+
+    let summary =null;
+    if(this.state.ifShown){
+        summary=(
+            <Modal>
+              <BurgerSummary data={this.state.ingredients}/>
+          </Modal>
+
+        )
+    }
     
     /**ANCHOR important!!!!
      * clickLess and more, when argu is not available in the file, we pass them as non argu funcs
      * and pass the type in BurgerControls.js where jsx BurgerControls is built */
     return (
       <div>
-          <Modal>
-              <BurgerSummary data={this.state.ingredients}/>
-          </Modal>
+          {summary}
         <Burger ingredients={this.state.ingredients} />
         <BurgerControls
           ingredients={this.state.ingredients}
@@ -87,6 +102,7 @@ class BurgerBuilder extends Component {
           ifDisable = {disableIngret}
           price={this.state.total}
           checkOut = {ifCheckOut}
+          showSummary={this.ifCheckOutClicked}
         />
         
       </div>

@@ -15,7 +15,7 @@ const burgerControls = props => {
   return <div className={cssClasses.BurgerControls}>
   <p>Current price: ${props.price}</p>
   {arrayControls}
-  <button className={cssClasses.OrderButton} disabled={props.checkOut}>Check out</button>
+  <button onClick = {props.showSummary} className={cssClasses.OrderButton} disabled={props.checkOut}>Check out</button>
   </div>;
 };
 export default burgerControls;
