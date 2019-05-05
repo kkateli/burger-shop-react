@@ -6,7 +6,10 @@ import BurgerControl from "./BurgerControl/BurgerControl";
 const burgerControls = props => {
   const arrayControls = Object.keys(props.ingredients).map(e => {
     
-        return <BurgerControl label={e} key={e} clickLess={()=>props.clickLess(e)} clickMore={()=>props.clickMore(e)} />;
+        return <BurgerControl label={e} key={e} 
+        clickLess={()=>props.clickLess(e)} 
+        clickMore={()=>props.clickMore(e)} 
+        ifDisable = {props.ifDisable[e]}/>;
   })
    
   return <div className={cssClasses.BurgerControls}>

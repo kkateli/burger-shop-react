@@ -3,40 +3,68 @@ import React, { Component } from "react";
 import Burger from "../Components/Burger/Burger";
 import BurgerControls from "../Components/Burger/BurgerControls/BurgerControls";
 
+const INGREDIENTSPRICE = {
+  salad: 0.5,
+  bacon: 1,
+  cheese: 1,
+  meat: 2
+};
+
 class BurgerBuilder extends Component {
   state = {
     ingredients: {
-      salad: 2,
-      bacon: 2,
-      cheese: 2,
-      meat: 2
-    }
+      salad: 0,
+      bacon: 0,
+      cheese: 0,
+      meat: 0
+    },
+    total: 0
   };
 
   clickLessButton = type => {
     const oldCount = this.state.ingredients[type];
     const ingres = { ...this.state.ingredients };
-    if (oldCount > 0) {
+    const total = this.state.total;
+     if (oldCount > 0) {
       const newCount = oldCount - 1;
-
       ingres[type] = newCount;
-      this.setState({ ingredients: ingres });
-    }
+      const newTotal = total - INGREDIENTSPRICE[type];
+      this.setState({ ingredients: ingres, total: newTotal });
+     }
+    
   };
+
+  
 
   clickMoreButton = type => {
     const oldCount = this.state.ingredients[type];
-
     const ingres = { ...this.state.ingredients };
-    
-      const newCount = oldCount + 1;
-      ingres[type] = newCount;
+    const total = this.state.total;
 
-      this.setState({ ingredients: ingres });
+    const newCount = oldCount + 1;
+    ingres[type] = newCount;
+    const newTotal = total + INGREDIENTSPRICE[type];
+
+    this.setState({ ingredients: ingres, total: newTotal });
+    
     
   };
+  
 
   render() {
+    const disableIngret = {...this.state.ingredients};
+    for(let key in disableIngret){
+        //NOTE This ingret will be {salad:true,meat:false}, so in BurgerControls.js, we access 
+      //true/false values through {props.ifDisable[e]}
+      //ANCHOR disable===true is disable, disable===false is able
+      if(disableIngret[key]<=0){
+        disableIngret[key]=true;
+      }else{
+        disableIngret[key]=false;
+      }
+     
+    }
+    console.log(disableIngret);
     /**ANCHOR important!!!!
      * clickLess and more, when argu is not available in the file, we pass them as non argu funcs
      * and pass the type in BurgerControls.js where jsx BurgerControls is built */
@@ -47,6 +75,7 @@ class BurgerBuilder extends Component {
           ingredients={this.state.ingredients}
           clickLess={this.clickLessButton}
           clickMore={this.clickMoreButton}
+          ifDisable = {disableIngret}
         />
         <div>checkout button</div>
       </div>
