@@ -62,7 +62,11 @@ class BurgerBuilder extends Component {
       }else{
         disableIngret[key]=false;
       }
-     
+    }
+
+    let ifCheckOut = true;
+    if(this.state.total>0){
+        ifCheckOut=false;
     }
     
     /**ANCHOR important!!!!
@@ -77,8 +81,9 @@ class BurgerBuilder extends Component {
           clickMore={this.clickMoreButton}
           ifDisable = {disableIngret}
           price={this.state.total}
+          checkOut = {ifCheckOut}
         />
-        <div>checkout button</div>
+        
       </div>
     );
   }
