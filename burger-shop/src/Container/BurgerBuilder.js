@@ -15,26 +15,31 @@ class BurgerBuilder extends Component {
 
   clickLessButton = type => {
     const oldCount = this.state.ingredients[type];
-    const newCount = oldCount - 1;
     const ingres = { ...this.state.ingredients };
-    ingres[type] = newCount;
+    if (oldCount > 0) {
+      const newCount = oldCount - 1;
 
-    this.setState({ ingredients: ingres });
+      ingres[type] = newCount;
+      this.setState({ ingredients: ingres });
+    }
   };
 
-  clickMoreButton = (type) => {
+  clickMoreButton = type => {
     const oldCount = this.state.ingredients[type];
-    const newCount = oldCount + 1;
-    const ingres = { ...this.state.ingredients };
-    ingres[type] = newCount;
 
-    this.setState({ ingredients: ingres });
+    const ingres = { ...this.state.ingredients };
+    
+      const newCount = oldCount + 1;
+      ingres[type] = newCount;
+
+      this.setState({ ingredients: ingres });
+    
   };
 
   render() {
-      /**ANCHOR important!!!! 
-       * clickLess and more, when argu is not available in the file, we pass them as non argu funcs
-       * and pass the type in BurgerControls.js where jsx BurgerControls is built */
+    /**ANCHOR important!!!!
+     * clickLess and more, when argu is not available in the file, we pass them as non argu funcs
+     * and pass the type in BurgerControls.js where jsx BurgerControls is built */
     return (
       <div>
         <Burger ingredients={this.state.ingredients} />
