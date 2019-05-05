@@ -82,7 +82,7 @@ class BurgerBuilder extends Component {
     if(this.state.ifShown){
         summary=(
             <Modal>
-              <BurgerSummary data={this.state.ingredients}/>
+              <BurgerSummary price= {this.state.total} data={this.state.ingredients}/>
           </Modal>
 
         )

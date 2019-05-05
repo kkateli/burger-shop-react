@@ -13,6 +13,7 @@ const burgerSummary =(props)=>{
        <ul> 
     {dataSummary}
        </ul>
+       <p>The total price is: {props.price}</p>
        <p>Enjoy your meal!</p>
        </div>
     )
