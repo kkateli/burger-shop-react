@@ -1,4 +1,5 @@
 import React from "react";
+import cssClasses from "./BurgerSummary.module.css";
 
 const burgerSummary =(props)=>{
     const dataSummary  = Object.keys(props.data).map(e=>{
@@ -15,6 +16,8 @@ const burgerSummary =(props)=>{
        </ul>
        <p>The total price is: {props.price}</p>
        <p>Enjoy your meal!</p>
+       <button className={cssClasses.Button} onClick={props.confirm}>Confirm</button>
+       <button className={cssClasses.Button} onClick = {props.cancel}>Cancel</button>
        </div>
     )
 

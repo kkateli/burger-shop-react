@@ -84,7 +84,10 @@ class BurgerBuilder extends Component {
         summary=(
             <div>
             <Modal>
-              <BurgerSummary price= {this.state.total} data={this.state.ingredients}/>
+              <BurgerSummary price= {this.state.total} 
+              data={this.state.ingredients}
+              confirm = {()=>alert("Your order has been confirmed")}
+              cancel = {this.ifClicked}/>
           </Modal>
           <Backdrop backdropClicked={this.ifClicked}/>
           </div>
