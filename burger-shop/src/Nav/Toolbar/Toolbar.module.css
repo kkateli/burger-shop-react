@@ -17,12 +17,21 @@
     height: 100%;
 }
 
-.Logo {
-    height: 80%;
-}
 
 @media (max-width: 499px) {
     .DesktopOnly {
         display: none;
     }
+}
+
+.Logo {
+    background-color: white;
+    padding: 8px;
+    height: 80%;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.Logo img {
+    height: 100%;
 }
