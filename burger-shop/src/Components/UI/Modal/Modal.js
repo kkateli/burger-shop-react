@@ -1,11 +1,16 @@
 import cssClasses from "./Modal.module.css";
-import React from "react";
-const modal =(props)=>{
-    return(
-        <div className={cssClasses.Modal}>{props.children}</div>
-
-    )
-    
-
+import React, { Component } from "react";
+class Modal extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.show !== this.props.show) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  render() {
+    return <div className={cssClasses.Modal}>{this.props.children}</div>;
+  }
 }
-export default modal;
+export default Modal;
