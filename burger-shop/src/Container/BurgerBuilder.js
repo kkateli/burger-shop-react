@@ -5,6 +5,7 @@ import BurgerControls from "../Components/Burger/BurgerControls/BurgerControls";
 import Modal from "../../src/Components/UI/Modal/Modal";
 import BurgerSummary from "../Components/Burger/BurgerSummary/BurgerSummary";
 import Backdrop from "../Components/UI/Backdrop/Backdrop";
+import axios from "../axios-orders"; //NOTE 
 
 const INGREDIENTSPRICE = {
   salad: 0.5,
@@ -22,23 +23,20 @@ class BurgerBuilder extends Component {
       meat: 0
     },
     total: 0,
-    ifShown:false
+    ifShown: false
   };
 
   clickLessButton = type => {
     const oldCount = this.state.ingredients[type];
     const ingres = { ...this.state.ingredients };
     const total = this.state.total;
-     if (oldCount > 0) {
+    if (oldCount > 0) {
       const newCount = oldCount - 1;
       ingres[type] = newCount;
       const newTotal = total - INGREDIENTSPRICE[type];
       this.setState({ ingredients: ingres, total: newTotal });
-     }
-    
+    }
   };
-
-  
 
   clickMoreButton = type => {
     const oldCount = this.state.ingredients[type];
@@ -50,68 +48,79 @@ class BurgerBuilder extends Component {
     const newTotal = total + INGREDIENTSPRICE[type];
 
     this.setState({ ingredients: ingres, total: newTotal });
-    
-    
   };
 
-  ifClicked = ()=>{
-      this.setState({ifShown:!this.state.ifShown});
+  ifClicked = () => {
+    this.setState({ ifShown: !this.state.ifShown });
+  };
 
-      }
   
-  
+
+  sendOrdersHandler=()=>{
+    axios.post('/order.json', {
+      ingredients: this.state.ingredients,
+      total: this.state.total
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  }
 
   render() {
-    const disableIngret = {...this.state.ingredients};
-    for(let key in disableIngret){
-        //NOTE This ingret will be {salad:true,meat:false}, so in BurgerControls.js, we access 
+    const disableIngret = { ...this.state.ingredients };
+    for (let key in disableIngret) {
+      //NOTE This ingret will be {salad:true,meat:false}, so in BurgerControls.js, we access
       //true/false values through {props.ifDisable[e]}
       //ANCHOR disable===true is disable, disable===false is able
-      if(disableIngret[key]<=0){
-        disableIngret[key]=true;
-      }else{
-        disableIngret[key]=false;
+      if (disableIngret[key] <= 0) {
+        disableIngret[key] = true;
+      } else {
+        disableIngret[key] = false;
       }
     }
 
     let ifCheckOut = true;
-    if(this.state.total>0){
-        ifCheckOut=false;
+    if (this.state.total > 0) {
+      ifCheckOut = false;
     }
 
-    let summary =null;
-    if(this.state.ifShown){
-        summary=(
-            <div>
-            <Modal>
-              <BurgerSummary price= {this.state.total} 
+    let summary = null;
+    if (this.state.ifShown) {
+      summary = (
+        <div>
+          <Modal>
+            <BurgerSummary
+              price={this.state.total}
               data={this.state.ingredients}
-              confirm = {()=>alert("Your order has been confirmed")}
-              cancel = {this.ifClicked}/>
+              confirm={this.sendOrdersHandler} //FIXME
+              cancel={this.ifClicked}
+            />
           </Modal>
-          <Backdrop backdropClicked={this.ifClicked}/>
-          </div>
-
-        )
+          <Backdrop backdropClicked={this.ifClicked} />
+        </div>
+      );
     }
-    
+
     /**ANCHOR important!!!!
      * clickLess and more, when argu is not available in the file, we pass them as non argu funcs
      * and pass the type in BurgerControls.js where jsx BurgerControls is built */
     return (
       <div>
-          {summary}
+        {summary}
         <Burger ingredients={this.state.ingredients} />
         <BurgerControls
           ingredients={this.state.ingredients}
           clickLess={this.clickLessButton}
           clickMore={this.clickMoreButton}
-          ifDisable = {disableIngret}
+          ifDisable={disableIngret}
           price={this.state.total}
-          checkOut = {ifCheckOut}
+          checkOut={ifCheckOut}
           showSummary={this.ifClicked}
         />
-        
       </div>
     );
   }
