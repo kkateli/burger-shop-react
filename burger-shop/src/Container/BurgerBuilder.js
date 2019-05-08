@@ -5,7 +5,8 @@ import BurgerControls from "../Components/Burger/BurgerControls/BurgerControls";
 import Modal from "../../src/Components/UI/Modal/Modal";
 import BurgerSummary from "../Components/Burger/BurgerSummary/BurgerSummary";
 import Backdrop from "../Components/UI/Backdrop/Backdrop";
-import axios from "../axios-orders"; //NOTE 
+import axios from "../axios-orders"; //NOTE
+import Spinner from "../Components/UI/Spinner/Spinner";
 
 const INGREDIENTSPRICE = {
   salad: 0.5,
@@ -23,7 +24,8 @@ class BurgerBuilder extends Component {
       meat: 0
     },
     total: 0,
-    ifShown: false
+    ifShown: false,
+    ifSpin: false
   };
 
   clickLessButton = type => {
@@ -54,21 +56,27 @@ class BurgerBuilder extends Component {
     this.setState({ ifShown: !this.state.ifShown });
   };
 
+  sendOrdersHandler = () => {
+    this.setState({ ifSpin: true });
+    
+      axios
+        .post("/order.json", {
+          ingredients: this.state.ingredients,
+          total: this.state.total
+        })
+        .then(response=>{
+          console.log(response);
+          this.setState({ ifSpin: false });
+
+        })
+        .catch(error=>{
+          console.log(error);
+          this.setState({ ifSpin: false });
+        });
+    
   
-
-  sendOrdersHandler=()=>{
-    axios.post('/order.json', {
-      ingredients: this.state.ingredients,
-      total: this.state.total
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
   }
+  
 
   render() {
     const disableIngret = { ...this.state.ingredients };
@@ -88,18 +96,24 @@ class BurgerBuilder extends Component {
       ifCheckOut = false;
     }
 
+    let summaryReport = (
+      <BurgerSummary
+        price={this.state.total}
+        data={this.state.ingredients}
+        confirm={this.sendOrdersHandler}
+        cancel={this.ifClicked}
+      />
+    );
+
+    if (this.state.ifSpin) {
+      summaryReport = <Spinner />;
+    }
+
     let summary = null;
     if (this.state.ifShown) {
       summary = (
         <div>
-          <Modal>
-            <BurgerSummary
-              price={this.state.total}
-              data={this.state.ingredients}
-              confirm={this.sendOrdersHandler} //FIXME
-              cancel={this.ifClicked}
-            />
-          </Modal>
+          <Modal show={this.state.total>0}>{summaryReport}</Modal>
           <Backdrop backdropClicked={this.ifClicked} />
         </div>
       );
