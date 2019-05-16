@@ -12,6 +12,14 @@ class CheckOut extends Component {
   }
 }
 
+componentDidMount(){
+  const query = new URLSearchParams(this.props.location.search);
+  const ingredients = {};
+  for (let i of query.entries()){
+    ingredients[i[0]] = parseInt(i[1]);
+  }
+  this.setState({ingredients: ingredients})
+}
   render() {
     const ingreds = Object.keys(this.state.ingredients).map(e=>{
       return(
@@ -25,7 +33,6 @@ class CheckOut extends Component {
       <div>
         <p>This is check out page</p>
         {ingreds}
-        {/* <p>salad: + {this.state.ingredients.salad}</p> */}
         <NavLink to={'/'}><button className={cssClasses.cancelButton}>Cancel</button></NavLink>
       </div>
     );

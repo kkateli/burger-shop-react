@@ -71,10 +71,15 @@ class BurgerBuilder extends Component {
     //     console.log(error);
     //     this.setState({ ifSpin: false });
     //   });
-    
+      const queryIngred = [];
+      for (let i in this.state.ingredients){
+        queryIngred.push(encodeURIComponent(i)+"="+encodeURIComponent(this.state.ingredients[i])); 
+      }
+      const stringIngred = queryIngred.join('&');
+      //use search pass a string with ? so that this string will show on the search bar on browser
     this.props.history.push({
       pathname: "/check-out",
-      search:''
+      search:'?'+stringIngred
     }
      );
     
