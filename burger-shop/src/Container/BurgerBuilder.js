@@ -72,7 +72,11 @@ class BurgerBuilder extends Component {
     //     this.setState({ ifSpin: false });
     //   });
     
-    this.props.history.push("/check-out");
+    this.props.history.push({
+      pathname: "/check-out",
+      search:''
+    }
+     );
     
 
   };
