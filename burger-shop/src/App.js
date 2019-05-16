@@ -4,6 +4,7 @@ import "./App.css";
 import Layout from "../src/Components/Layout/Layout";
 import BurgerBuilder from "../src/Container/BurgerBuilder";
 import CheckOut from "../src/Components/Burger/CheckOut/CheckOut";
+import Auth from "../src/Container/Auth/Auth";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={BurgerBuilder} />
           <Route path="/check-out"  component={CheckOut} />
+          <Route path="/auth" component={Auth} />
         </Switch>
       </Layout>
     </div>

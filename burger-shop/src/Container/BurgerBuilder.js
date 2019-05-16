@@ -7,6 +7,7 @@ import BurgerSummary from "../Components/Burger/BurgerSummary/BurgerSummary";
 import Backdrop from "../Components/UI/Backdrop/Backdrop";
 import Spinner from "../Components/UI/Spinner/Spinner";
 
+
 const INGREDIENTSPRICE = {
   salad: 0.5,
   bacon: 1,
@@ -145,6 +146,7 @@ class BurgerBuilder extends Component {
           checkOut={ifCheckOut}
           showSummary={this.ifClicked}
         />
+       
       </div>
     );
   }
