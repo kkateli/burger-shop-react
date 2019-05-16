@@ -58,25 +58,21 @@ class BurgerBuilder extends Component {
 
   sendOrdersHandler = () => {
     this.setState({ ifSpin: true });
-    
-      axios
-        .post("/order.json", {
-          ingredients: this.state.ingredients,
-          total: this.state.total
-        })
-        .then(response=>{
-          console.log(response);
-          this.setState({ ifSpin: false });
 
-        })
-        .catch(error=>{
-          console.log(error);
-          this.setState({ ifSpin: false });
-        });
-    
-  
-  }
-  
+    axios
+      .post("/order.json", {
+        ingredients: this.state.ingredients,
+        total: this.state.total
+      })
+      .then(response => {
+        console.log(response);
+        this.setState({ ifSpin: false });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({ ifSpin: false });
+      });
+  };
 
   render() {
     const disableIngret = { ...this.state.ingredients };
@@ -113,7 +109,7 @@ class BurgerBuilder extends Component {
     if (this.state.ifShown) {
       summary = (
         <div>
-          <Modal show={this.state.total>0}>{summaryReport}</Modal>
+          <Modal show={this.state.total > 0}>{summaryReport}</Modal>
           <Backdrop backdropClicked={this.ifClicked} />
         </div>
       );

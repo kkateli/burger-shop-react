@@ -30,8 +30,21 @@
     height: 80%;
     box-sizing: border-box;
     border-radius: 5px;
+    
 }
 
 .Logo img {
     height: 100%;
+}
+
+.checkOut{
+    display:inline-block;
+    color:white;
+    text-align: right;
+    margin-left: 700px;
+}
+
+.checkOut:hover,
+.checkOut:active{
+    color:red;
 }

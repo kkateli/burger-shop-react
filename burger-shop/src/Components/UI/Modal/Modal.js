@@ -1,6 +1,7 @@
 import cssClasses from "./Modal.module.css";
 import React, { Component } from "react";
 class Modal extends Component {
+  //For minimising the load of rendering 
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.show !== this.props.show || nextProps.children!==this.props.children) {
       return true;
