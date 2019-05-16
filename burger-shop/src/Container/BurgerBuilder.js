@@ -5,7 +5,6 @@ import BurgerControls from "../Components/Burger/BurgerControls/BurgerControls";
 import Modal from "../../src/Components/UI/Modal/Modal";
 import BurgerSummary from "../Components/Burger/BurgerSummary/BurgerSummary";
 import Backdrop from "../Components/UI/Backdrop/Backdrop";
-import axios from "../axios-orders"; //NOTE
 import Spinner from "../Components/UI/Spinner/Spinner";
 
 const INGREDIENTSPRICE = {
@@ -56,26 +55,30 @@ class BurgerBuilder extends Component {
     this.setState({ ifShown: !this.state.ifShown });
   };
 
-  // sendOrdersHandler = () => {
-  //   // this.setState({ ifSpin: true });
+  sendOrdersHandler = () => {
+    // this.setState({ ifSpin: true });
 
-  //   // axios
-  //   //   .post("/order.json", {
-  //   //     ingredients: this.state.ingredients,
-  //   //     total: this.state.total
-  //   //   })
-  //   //   .then(response => {
-  //   //     console.log(response);
-  //   //     this.setState({ ifSpin: false });
-  //   //   })
-  //   //   .catch(error => {
-  //   //     console.log(error);
-  //   //     this.setState({ ifSpin: false });
-  //   //   });
+    // axios
+    //   .post("/order.json", {
+    //     ingredients: this.state.ingredients,
+    //     total: this.state.total
+    //   })
+    //   .then(response => {
+    //     console.log(response);
+    //     this.setState({ ifSpin: false });
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //     this.setState({ ifSpin: false });
+    //   });
+    
+    this.props.history.push("/check-out");
+    
 
-  // };
+  };
 
   render() {
+
     const disableIngret = { ...this.state.ingredients };
     for (let key in disableIngret) {
       //NOTE This ingret will be {salad:true,meat:false}, so in BurgerControls.js, we access
@@ -97,7 +100,7 @@ class BurgerBuilder extends Component {
       <BurgerSummary
         price={this.state.total}
         data={this.state.ingredients}
-        // confirm={this.sendOrdersHandler}
+        confirm={this.sendOrdersHandler}
         cancel={this.ifClicked}
       />
     );
@@ -115,6 +118,7 @@ class BurgerBuilder extends Component {
         </div>
       );
     }
+    
 
     /**ANCHOR important!!!!
      * clickLess and more, when argu is not available in the file, we pass them as non argu funcs
