@@ -1,5 +1,6 @@
 import React from "react";
 import cssClasses from "./BurgerSummary.module.css";
+import {Link} from "react-router-dom";
 
 const burgerSummary =(props)=>{
     const dataSummary  = Object.keys(props.data).map(e=>{
@@ -16,7 +17,7 @@ const burgerSummary =(props)=>{
        </ul>
        <p>The total price is: {props.price}</p>
        <p>Enjoy your meal!</p>
-       <button className={cssClasses.Button} onClick={props.confirm}>Confirm</button>
+       <Link to={"/check-out"}><button className={cssClasses.Button}>Confirm</button></Link>
        <button className={cssClasses.Button} onClick = {props.cancel}>Cancel</button>
        </div>
     )
