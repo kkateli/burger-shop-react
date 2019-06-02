@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import cssClasses from "./Auth.module.css";
 import Input from "../../Components/UI/Input/Input";
+import {auth} from "../../actions/auth";
+import {connect} from "react-redux";
 
 class Auth extends Component{
     state = {
@@ -117,11 +119,10 @@ class Auth extends Component{
     }
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onAuth: (email, password) => dispatch(actions.auth(email, password))
-//     };
-// };
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (email, password) => dispatch(auth(email, password))
+    };
+};
 
-// export default connect(null, mapDispatchToProps)(Auth);
-export default Auth;
+export default connect(null, mapDispatchToProps)(Auth);
