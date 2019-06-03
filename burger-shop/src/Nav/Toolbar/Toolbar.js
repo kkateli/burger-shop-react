@@ -11,7 +11,7 @@ const toolbar = () => {
         <i className="fas fa-align-justify" />
       </p>
       <Link to={"/auth"}>
-      <p className={cssClasses.checkOut}>Sign in</p>
+      <p className={cssClasses.checkOut}>Authentication</p>
       </Link>
       
       
