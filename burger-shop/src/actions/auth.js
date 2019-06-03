@@ -6,10 +6,11 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = authData => {
+export const authSuccess = (token,userId) => {
   return {
     type: "AUTH_SUCCESS",
-    payload: authData
+    token:token,
+    userId:userId
   };
 };
 
@@ -38,7 +39,7 @@ export const auth = (email, password, ifSignup) => {
       .post(url, authData)
       .then(response => {
         console.log(response.data);
-        dispatch(authSuccess(response.data));
+        dispatch(authSuccess(response.data.idToken,response.data.localId));
       })
       .catch(err => {
         console.log(err);
