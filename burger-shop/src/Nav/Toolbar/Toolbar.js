@@ -2,36 +2,43 @@
 import React from "react";
 import cssClasses from "./Toolbar.module.css";
 import logo from "../../assets/images/burger-logo.png";
-import {Link} from "react-router-dom";
-import {connect} from "react-redux";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-
-const toolbar = (props) => {
+const toolbar = props => {
   return (
     <div className={cssClasses.Toolbar}>
       <p>
         <i className="fas fa-align-justify" />
       </p>
-      <Link to={"/auth"}>
-      <p className={cssClasses.checkOut}>{props.ifAuth ? "log out": "Authentication"}</p>
-      </Link>
+      {props.ifAuth ? (
+        <Link to={"/logout"}>
+          <p className={cssClasses.checkOut}>Log out</p>
+        </Link>
+      ) : (
+        <Link to={"/auth"}>
+          <p className={cssClasses.checkOut}>Authentication</p>
+        </Link>
+      )}
+
       <Link to={"/secret"}>
-      <div className={cssClasses.checkOut}>secret</div>
+        <div className={cssClasses.checkOut}>secret</div>
       </Link>
-      
+
       <div className={cssClasses.Logo}>
-      <Link to={"/"}> 
-        <img src={logo} alt="logo" />
+        <Link to={"/"}>
+          <img src={logo} alt="logo" />
         </Link>
       </div>
-      
     </div>
   );
 };
 
-const mapStateToProps=(state)=>{
-  return {ifAuth:state.auth.token !=null}
+const mapStateToProps = state => {
+  return { ifAuth: state.auth.token != null };
+};
 
-}
-
-export default connect(mapStateToProps,null)(toolbar);
+export default connect(
+  mapStateToProps,
+  null
+)(toolbar);
