@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component}from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Layout from "../src/Components/Layout/Layout";
@@ -7,22 +7,38 @@ import CheckOut from "../src/Components/Burger/CheckOut/CheckOut";
 import Auth from "../src/Container/Auth/Auth";
 import S from "./Components/Secret/Secret";
 import Logout from "./Components/Logout/Logout";
+import { connect } from "react-redux";
+import { authCheck } from "./actions/auth";
 
-function App() {
-  return (
-    <div>
-      <Layout>
-        <Switch>
-          <Route path="/" exact component={BurgerBuilder} />
-          <Route path="/check-out"  component={CheckOut} />
-          <Route path="/auth" component={Auth} />
-          <Route path="/logout" component={Logout} />
-          <Route  path="/secret" component={S} />
+class App extends Component{
+  componentDidMount(){
+    return this.props.checkAuth();
+  }
+  render(){
+    return (
+      <div>
+        <Layout>
+          <Switch>
+            <Route path="/" exact component={BurgerBuilder} />
+            <Route path="/check-out" component={CheckOut} />
+            <Route path="/auth" component={Auth} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/secret" component={S} />
+          </Switch>
+        </Layout>
+      </div>
+    );
 
-        </Switch>
-      </Layout>
-    </div>
-  );
+  }
+  
+  
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return { checkAuth: () => dispatch(authCheck()) };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);
