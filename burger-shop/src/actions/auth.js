@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export const authStart = () => {
   return {
     type: "AUTH-START"
@@ -45,6 +46,11 @@ export const auth = (email, password, ifSignup) => {
       .post(url, authData)
       .then(response => {
         console.log(response.data);
+        //Local storage to hold auth info after reloading
+        //to store in an obj
+        const expirationTime = new Date(new Date().getTime()+3600 *1000);
+        localStorage.setItem("token", response.data.idToken);
+        localStorage.setItem("expirationTime", expirationTime);
         dispatch(authSuccess(response.data.idToken,response.data.localId));
       })
       .catch(err => {

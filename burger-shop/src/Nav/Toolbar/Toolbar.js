@@ -20,14 +20,15 @@ const toolbar = props => {
           <p className={cssClasses.checkOut}>Authentication</p>
         </Link>
       )}
-
+      {props.ifAuth ? (
       <Link to={"/secret"}>
         <div className={cssClasses.checkOut}>secret</div>
       </Link>
+      ) :null}
 
       <div className={cssClasses.Logo}>
         <Link to={"/"}>
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" />  
         </Link>
       </div>
     </div>
